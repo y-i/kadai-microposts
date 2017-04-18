@@ -1,0 +1,17 @@
+<% if current_user.favorite?(micropost) %>
+  <%= form_for(current_user.favorites.find_by(micropost_id: micropost.id), html: { method: :delete }) do |f| %>
+    <%= hidden_field_tag :post_id, micropost.id %>
+    <label>
+      <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+      <%= f.submit 'UnFav', class: 'btn btn-warning fav-btn' %>
+    </label>
+  <% end %>
+<% else %>
+  <%= form_for(current_user.favorites.build) do |f| %>
+    <%= hidden_field_tag :post_id, micropost.id %>
+    <label>
+      <span class="glyphicon glyphicon-star-empty" aria-hidden="true"></span>
+      <%= f.submit 'Fav', class: 'btn btn-priority fav-btn' %>
+    </label>
+  <% end %>
+<% end %>
